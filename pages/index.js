@@ -5,12 +5,8 @@ const IndexPage = () => {
   return (
     <div className="continer speakers-list">
       <div className="row">
-        {data.map(function (speaker){
-        const {id,bio,first,last,favorite,twitterHandle,company,sessions} = speaker;
-        
-        return (
-          <Speaker key={speaker.id} speaker={speaker} />
-        )
+        {data.map(function (speaker){        
+        return <Speaker key={speaker.id} speaker={speaker} />        
         })}
       </div>
     </div>
