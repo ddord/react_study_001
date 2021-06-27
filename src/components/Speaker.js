@@ -33,7 +33,7 @@ function Session({title, room}){
       <div className="speaker-info">
         <div className="d-flex justify-content-between mb-3">
           <h3 className="text-truncate w-200">
-            {first} {last}
+            {first} {last} {first}
           </h3>
         </div>
         <div>
