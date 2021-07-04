@@ -12,4 +12,5 @@ function Speakers() {
         </div>
     );
 }
+
 export default Speakers
