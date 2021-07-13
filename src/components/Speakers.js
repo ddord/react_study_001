@@ -9,7 +9,7 @@ function Speakers({ data, theme, setTheme }){
     return (
         <>
             <SpeakersToolbar theme={theme} setTheme={setTheme} showSessions={showSessions} setShowSessions={setShowSessions} />
-            <SpeakersList data={data} showSessions={showSessions} />
+            <SpeakersList showSessions={showSessions} />
         </>
     );
 }
