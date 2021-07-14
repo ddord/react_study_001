@@ -1,10 +1,21 @@
 import Speaker from "./Speaker";
 import { data } from "../../SpeakerData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function SpeakersList({ showSessions }) {
 
     const [speakerData, setSpeakersData] = useState(data);
+
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
+
+    useEffect(() =>{
+
+        async function dealyFunc() {
+            await delay(2000);
+            setSpeakersData(data);
+        }
+        dealyFunc();        
+    }, []);
 
     function onFavoriteToggle(id) {
         const speakerRecPrevious = speakerData.find(function (rec) {
