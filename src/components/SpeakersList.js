@@ -6,6 +6,7 @@ function SpeakersList({ showSessions }) {
 
     const [speakerData, setSpeakersData] = useState(data);
 
+    
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
 
     useEffect(() =>{
