@@ -18,6 +18,7 @@ function SpeakersList({ showSessions }) {
         dealyFunc();        
     }, []);
 
+
     function onFavoriteToggle(id) {
         const speakerRecPrevious = speakerData.find(function (rec) {
             return rec.id === id;
