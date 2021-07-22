@@ -18,7 +18,6 @@ function SpeakersList({ showSessions }) {
         dealyFunc();        
     }, []);
 
-
     function onFavoriteToggle(id) {
         const speakerRecPrevious = speakerData.find(function (rec) {
             return rec.id === id;
@@ -33,7 +32,6 @@ function SpeakersList({ showSessions }) {
 
         setSpeakersData(speakerDataNew)
     }
-
 
     return (
         <div className="continer speakers-list">
