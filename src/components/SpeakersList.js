@@ -1,55 +1,52 @@
 import Speaker from "./Speaker";
 import { data } from "../../SpeakerData";
 import { useState, useEffect } from "react";
+import ReactPlaceholder from "react-placeholder/lib";
+import useRequestSpeaksers, {REQUEST_STATUS} from "../hooks/useRequestSpeakers"; 
 
 function SpeakersList({ showSessions }) {
 
-    const [speakerData, setSpeakersData] = useState(data);
-
+    const {
+        setSpeakersData,
+        requestStatus,
+        error,
+        onFavoriteToggle
+    } = useRequestSpeaksers(2000)
     
-    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
 
-    useEffect(() =>{
-
-        async function dealyFunc() {
-            await delay(2000);
-            setSpeakersData(data);
-        }
-        dealyFunc();        
-    }, []);
-
-    
-    function onFavoriteToggle(id) {
-        const speakerRecPrevious = speakerData.find(function (rec) {
-            return rec.id === id;
-        });
-        const speakerRecupdated = {
-            ...speakerRecPrevious,
-            favorite: !speakerRecPrevious.favorite
-        };
-        const speakerDataNew = speakerData.map(function (rec) {
-            return  rec.id === id ? speakerRecupdated : rec;
-        });
-
-        setSpeakersData(speakerDataNew)
+    if (hasErrored === true){
+        return (
+            <div className="text-danger">
+                ERROR: <b>loading Speaker Data Failed {error}</b>
+            </div>
+        )
     }
+
+    //if (isLoading === true) return <div>Loading...</div>
 
     return (
         <div className="continer speakers-list">
-            <div className="row">
-                {speakerData.map(function (speaker){        
-                    return (
-                        <Speaker 
-                            key={speaker.id} 
-                            speaker={speaker} 
-                            showSessions={showSessions} 
-                            onFavoriteToggle={() => {
-                                onFavoriteToggle(speaker.id);
-                            }}
-                        />
-                    );        
-                })}
-            </div>
+            <ReactPlaceholder
+                type="media"
+                rows={15}
+                className="speakerslist-placeholder"
+                ready={requestStatus === REQUEST_STATUS.SUCCESS}
+            >
+                <div className="row">
+                    {speakerData.map(function (speaker){        
+                        return (
+                            <Speaker 
+                                key={speaker.id} 
+                                speaker={speaker} 
+                                showSessions={showSessions} 
+                                onFavoriteToggle={() => {
+                                    onFavoriteToggle(speaker.id);
+                                }}
+                            />
+                        );        
+                    })}
+                </div>
+            </ReactPlaceholder>
         </div>
     );
 }
