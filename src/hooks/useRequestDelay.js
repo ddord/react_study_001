@@ -1,4 +1,3 @@
-import { data } from "../../SpeakerData";
 import { useState, useEffect } from "react";
 
 export const REQUEST_STATUS = {
@@ -7,9 +6,9 @@ export const REQUEST_STATUS = {
     FAILURE: "failure"
 };
 
-function useRequestSpeaksers(delayTime = 1000){
+function useRequestDelay(delayTime = 1000, initialData=[]){
 
-    const [speakerData, setSpeakersData] = useState(data);
+    const [data, setData] = useState(initialData);
     const [requestStatus, setRequestStatus] = useState(REQUEST_STATUS.LOADINIG);
     const [error, setError] = useState("");
 
@@ -22,38 +21,40 @@ function useRequestSpeaksers(delayTime = 1000){
                 await delay(delayTime);
                 //throw "Had Error."
                 setRequestStatus(REQUEST_STATUS.SUCCESS);
-                setSpeakersData(data);
+                setData(data);
             } catch (e) {
                 setRequestStatus(REQUEST_STATUS.FAILURE);
                 setError(e);
             }
-            
-            
+                        
         }
         dealyFunc();        
     }, []);
 
 
-    function onFavoriteToggle(id) {
-        const speakerRecPrevious = speakerData.find(function (rec) {
-            return rec.id === id;
-        });
-        const speakerRecupdated = {
-            ...speakerRecPrevious,
-            favorite: !speakerRecPrevious.favorite
-        };
-        const speakerDataNew = speakerData.map(function (rec) {
-            return  rec.id === id ? speakerRecupdated : rec;
+    function updateRecord(recordUpdated) {
+        const newRecords = data.map(function (rec) {
+            return rec.id === recordUpdated.id ? recordUpdated : rec;
         });
 
-        setSpeakersData(speakerDataNew)
+        async function delayFunction () {
+            try {
+                await delay (delayTime);
+                setData(newRecords);                
+            } catch (error) {
+                console.log("error thrown inside delayFunction", error);
+            }
+        }
+        delayFunction();
     }
 
     return {
-        speakerData,
+        data,
         requestStatus,
         error,
-        onFavoriteToggle
+        updateRecord,
     };
 
 }
+
+export default useRequestDelay;
