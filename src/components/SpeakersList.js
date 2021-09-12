@@ -11,7 +11,6 @@ function SpeakersList({ showSessions }) {
         error,
         updateRecord,
     } = useRequestDelay(2000, data)
-    
 
     if (requestStatus === REQUEST_STATUS.FAILURE){
         return (
@@ -23,6 +22,7 @@ function SpeakersList({ showSessions }) {
 
     //if (isLoading === true) return <div>Loading...</div>
     
+
     return (
         <div className="continer speakers-list">
             <ReactPlaceholder
