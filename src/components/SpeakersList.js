@@ -19,7 +19,8 @@ function SpeakersList({ showSessions }) {
             </div>
         )
     }
-
+ 
+    
     //if (isLoading === true) return <div>Loading...</div>
 
     return (
